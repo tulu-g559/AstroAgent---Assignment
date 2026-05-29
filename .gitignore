@@ -1,1 +1,11 @@
-/server/venv
+/server/venv/
+/server/.env
+
+/server/__pycache__
+/server/app/__pycache__
+/server/app/api/__pycache__
+/server/app/core/__pycache__
+/server/app/graph/__pycache__
+/server/app/models/__pycache__
+
+

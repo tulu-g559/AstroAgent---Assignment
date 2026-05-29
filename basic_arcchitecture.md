@@ -16,27 +16,22 @@
        +-------------+--------------+
        |                            |
        v                            v
-
-  Reasoning Node             Tool Node
+  Reasoning Node                Tool Node
        |                            |
-       +------------Router----------+
+       +----------Router------------+
                     |
                     v
-
     +-----------------------------------+
     | geocode_place                     |
     | compute_birth_chart               |
     | get_daily_transits                |
     | knowledge_lookup                  |
     +-----------------------------------+
-
                     |
                     v
-
               Final Response
                     |
                     v
-
             React Chat UI
 
 ```

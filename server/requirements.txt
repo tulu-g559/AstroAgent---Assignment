@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+python-dotenv 
+langgraph
+langchain
+langchain-openai
+pyswisseph
+flatlib #--no-deps
+geopy
+faiss-cpu
+pydantic
+openai
+
+pip install geopy faiss-cpu pydantic openai
