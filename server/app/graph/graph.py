@@ -6,7 +6,7 @@ from langchain_core.messages import SystemMessage
 from app.graph.state import AstroState
 from app.graph.router import router_node, route_intent
 from app.graph.memory import memory_node
-from app.core.llm import llm_with_tools
+from app.core.llm import llm, llm_with_tools
 from app.tools import TOOLS
 
 SYSTEM_PROMPT = """
@@ -31,9 +31,14 @@ def agent_node(state: AstroState):
     if state.get("birth_data"):
         context += f"\nUser's birth data: {state['birth_data']}\n"
 
+    active_llm = llm_with_tools
+    if state.get("natal_chart"):
+        filtered = [t for t in TOOLS if t.name != "compute_birth_chart"]
+        active_llm = llm.bind_tools(filtered)
+
     system = SystemMessage(content=SYSTEM_PROMPT + context)
 
-    response = llm_with_tools.invoke(
+    response = active_llm.invoke(
         [system] + state["messages"]
     )
 
