@@ -1,5 +1,6 @@
 from datetime import datetime, timezone, timedelta
 
+from langchain_core.tools import tool
 from timezonefinder import TimezoneFinder
 from flatlib.chart import Chart
 from flatlib.datetime import Datetime
@@ -31,12 +32,14 @@ def get_timezone_offset(latitude: float, longitude: float) -> str:
     return f"{sign}{hours:02d}:{minutes:02d}"
 
 
+@tool
 def compute_birth_chart(
     date: str,
     time: str,
     latitude: float,
     longitude: float,
 ):
+    """Compute the birth chart for a given date, time, and location."""
     offset_str = get_timezone_offset(latitude, longitude)
 
     dt = Datetime(date, time, offset_str)
@@ -52,16 +55,9 @@ def compute_birth_chart(
     mars = chart.get(const.MARS)
 
     return {
-        "birth_info": {
-            "date": date,
-            "time": time,
-            "timezone": offset_str,
-        },
-        "planets": {
-            "sun": sun.sign,
-            "moon": moon.sign,
-            "mercury": mercury.sign,
-            "venus": venus.sign,
-            "mars": mars.sign,
-        },
+        "sun": sun.sign,
+        "moon": moon.sign,
+        "mercury": mercury.sign,
+        "venus": venus.sign,
+        "mars": mars.sign,
     }

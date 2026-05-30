@@ -1,3 +1,4 @@
+from langchain_core.tools import tool
 from geopy.geocoders import Nominatim
 
 geolocator = Nominatim(
@@ -5,7 +6,9 @@ geolocator = Nominatim(
 )
 
 
+@tool
 def geocode_place(place: str):
+    """Convert a city/place name into latitude and longitude."""
     location = geolocator.geocode(place)
 
     if not location:

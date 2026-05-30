@@ -3,6 +3,8 @@ import os
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 
+from app.tools import TOOLS
+
 load_dotenv()
 
 llm = ChatOpenAI(
@@ -11,3 +13,5 @@ llm = ChatOpenAI(
     base_url=os.getenv("OPENROUTER_BASE_URL"),
     temperature=0.3,
 )
+
+llm_with_tools = llm.bind_tools(TOOLS)
