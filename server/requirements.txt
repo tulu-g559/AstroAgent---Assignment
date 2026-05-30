@@ -7,8 +7,8 @@ langchain-openai
 pyswisseph
 flatlib #--no-deps
 geopy
+timezonefinder
 faiss-cpu
 pydantic
 openai
-
-pip install geopy faiss-cpu pydantic openai
+timezonefinder

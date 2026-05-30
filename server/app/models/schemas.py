@@ -7,3 +7,9 @@ class ChatRequest(BaseModel):
 
 class ChatResponse(BaseModel):
     response: str
+
+
+class BirthDetails(BaseModel):
+    date: str
+    time: str
+    place: str
