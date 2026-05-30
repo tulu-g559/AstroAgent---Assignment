@@ -3,6 +3,7 @@ uvicorn
 python-dotenv 
 langgraph
 langchain
+langchain-community
 langchain-openai
 pyswisseph
 flatlib #--no-deps

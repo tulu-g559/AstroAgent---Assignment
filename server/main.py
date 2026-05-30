@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from app.api.chat import router as chat_router
 from app.api.geocode import router as geocode_router
 from app.api.chart import router as chart_router
+from app.api.transits import router as transits_router
 
 app = FastAPI(
     title="AstroAgent"
@@ -24,4 +25,10 @@ app.include_router(
     chart_router,
     prefix="/chart",
     tags=["Chart"]
+)
+
+app.include_router(
+    transits_router,
+    prefix="/transits",
+    tags=["Transits"]
 )

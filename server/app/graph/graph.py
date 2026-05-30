@@ -4,6 +4,8 @@ from langgraph.prebuilt import ToolNode, tools_condition
 from langchain_core.messages import SystemMessage
 
 from app.graph.state import AstroState
+from app.graph.router import router_node, route_intent
+from app.graph.memory import memory_node
 from app.core.llm import llm_with_tools
 from app.tools import TOOLS
 
@@ -23,15 +25,20 @@ Always use tools for astrology calculations.
 
 def agent_node(state: AstroState):
 
+    context = ""
+    if state.get("natal_chart"):
+        context = f"\nUser's natal chart: {state['natal_chart']}\n"
+    if state.get("birth_data"):
+        context += f"\nUser's birth data: {state['birth_data']}\n"
+
+    system = SystemMessage(content=SYSTEM_PROMPT + context)
+
     response = llm_with_tools.invoke(
-        [
-            SystemMessage(content=SYSTEM_PROMPT)
-        ]
-        + state["messages"]
+        [system] + state["messages"]
     )
 
     return {
-        "messages": [response]
+        "messages": [response],
     }
 
 
@@ -40,16 +47,31 @@ tool_node = ToolNode(TOOLS)
 
 builder = StateGraph(AstroState)
 
+builder.add_node("router", router_node)
 builder.add_node("agent", agent_node)
 builder.add_node("tools", tool_node)
+builder.add_node("memory", memory_node)
 
-builder.set_entry_point("agent")
+builder.set_entry_point("router")
+
+builder.add_conditional_edges(
+    "router",
+    route_intent,
+    {
+        "chart": "agent",
+        "transit": "agent",
+        "knowledge": "agent",
+        "chat": "agent",
+        "offtopic": "agent",
+    },
+)
 
 builder.add_conditional_edges(
     "agent",
     tools_condition,
 )
 
-builder.add_edge("tools", "agent")
+builder.add_edge("tools", "memory")
+builder.add_edge("memory", "agent")
 
 graph = builder.compile()

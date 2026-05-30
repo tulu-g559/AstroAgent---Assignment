@@ -7,5 +7,7 @@
 /server/app/core/__pycache__
 /server/app/graph/__pycache__
 /server/app/models/__pycache__
+/server/app/tools/__pycache__
+
 
 
