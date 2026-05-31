@@ -20,6 +20,9 @@ is required.
 Never invent planetary positions.
 
 Always use tools for astrology calculations.
+
+When calling get_daily_transits, always pass the user's
+natal_chart if it is available in the context above.
 """
 
 
