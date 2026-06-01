@@ -1,0 +1,143 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #0F172A;
+  --bg-secondary: #111827;
+  --surface-1: #1E293B;
+  --surface-2: #243447;
+  --accent-1: #C084FC;
+  --accent-2: #A78BFA;
+  --accent-3: #E9D5FF;
+  --text-primary: #F8FAFC;
+  --text-muted: #CBD5E1;
+  --border: rgba(192, 132, 252, 0.15);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-muted);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(192, 132, 252, 0.2);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(192, 132, 252, 0.4);
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Markdown prose overrides for chat bubbles */
+.prose-invert {
+  --tw-prose-body: var(--text-muted);
+  --tw-prose-headings: var(--text-primary);
+  --tw-prose-links: var(--accent-1);
+  --tw-prose-bold: var(--text-primary);
+  --tw-prose-code: var(--accent-3);
+  --tw-prose-pre-bg: var(--surface-2);
+  --tw-prose-quotes: var(--text-muted);
+  --tw-prose-quote-borders: var(--accent-2);
+}
+
+.prose-sm p {
+  margin: 0.35em 0;
+}
+
+.prose-sm :where(h1, h2, h3, h4) {
+  margin: 0.6em 0 0.3em;
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--text-primary);
+}
+
+.prose-sm :where(ul, ol) {
+  margin: 0.3em 0;
+  padding-left: 1.25em;
+}
+
+.prose-sm :where(li) {
+  margin: 0.1em 0;
+}
+
+.prose-sm :where(code) {
+  font-size: 0.85em;
+  padding: 0.15em 0.35em;
+  border-radius: 4px;
+  background: rgba(192, 132, 252, 0.1);
+}
+
+.prose-sm :where(pre) {
+  margin: 0.5em 0;
+  padding: 0.75em 1em;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  overflow-x: auto;
+}
+
+.prose-sm :where(blockquote) {
+  margin: 0.5em 0;
+  padding-left: 0.75em;
+  font-style: italic;
+  border-left-width: 2px;
+}
+
+.prose-sm :where(hr) {
+  margin: 0.75em 0;
+  border-color: var(--border);
+}
+
+.prose-sm :where(strong) {
+  color: var(--text-primary);
+}
+
+.prose-sm :where(a) {
+  color: var(--accent-1);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

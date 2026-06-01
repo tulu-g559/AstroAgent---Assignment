@@ -8,4 +8,24 @@ export default defineConfig({
     react(),
     babel({ presets: [reactCompilerPreset()] })
   ],
+  server: {
+    proxy: {
+      '/chat': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+      },
+      '/chart': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+      },
+      '/geocode': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+      },
+      '/transits': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+      },
+    },
+  },
 })

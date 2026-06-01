@@ -7,4 +7,4 @@ router = APIRouter()
 
 @router.get("/")
 def geocode(place: str):
-    return geocode_place(place)
+    return geocode_place.invoke({"place": place})

@@ -23,32 +23,68 @@ Always use tools for astrology calculations.
 
 When calling get_daily_transits, always pass the user's
 natal_chart if it is available in the context above.
+
+When calling knowledge_lookup, always pass the user's
+natal_chart if it is available — this lets the RAG
+system personalize explanations to their placements.
 """
 
 
+# def agent_node(state: AstroState):
+
+#     context = ""
+#     if state.get("natal_chart"):
+#         context = f"\nUser's natal chart: {state['natal_chart']}\n"
+#     if state.get("birth_data"):
+#         context += f"\nUser's birth data: {state['birth_data']}\n"
+
+#     # Use all tools - filtering happens at LLM level only for system instructions
+#     system = SystemMessage(content=SYSTEM_PROMPT + context)
+
+#     response = llm_with_tools.invoke(
+#         [system] + state["messages"]
+#     )
+
+#     return {
+#         "messages": [response],
+#     }
 def agent_node(state: AstroState):
 
+    print("\n========== AGENT STATE ==========")
+    print("birth_data:", state.get("birth_data"))
+    print("natal_chart:", state.get("natal_chart"))
+    print("=================================\n")
+
     context = ""
+
     if state.get("natal_chart"):
-        context = f"\nUser's natal chart: {state['natal_chart']}\n"
+        context += f"""
+User Natal Chart:
+{state['natal_chart']}
+
+IMPORTANT:
+- The user's chart has already been calculated.
+- NEVER ask again for birth date, birth time, or birth location.
+- Use this natal chart for all astrology questions.
+"""
+
     if state.get("birth_data"):
-        context += f"\nUser's birth data: {state['birth_data']}\n"
+        context += f"""
+User Birth Data:
+{state['birth_data']}
+"""
 
-    active_llm = llm_with_tools
-    if state.get("natal_chart"):
-        filtered = [t for t in TOOLS if t.name != "compute_birth_chart"]
-        active_llm = llm.bind_tools(filtered)
+    system = SystemMessage(
+        content=SYSTEM_PROMPT + context
+    )
 
-    system = SystemMessage(content=SYSTEM_PROMPT + context)
-
-    response = active_llm.invoke(
+    response = llm_with_tools.invoke(
         [system] + state["messages"]
     )
 
     return {
         "messages": [response],
     }
-
 
 tool_node = ToolNode(TOOLS)
 

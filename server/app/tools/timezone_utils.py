@@ -17,6 +17,14 @@ def get_timezone_name(
     return tz
 
 
+def dec_to_dms(deg: float) -> str:
+    """Convert decimal degrees to flatlib integer DMS string (e.g. 23.535 → '23:32:6')."""
+    d = int(abs(deg))
+    m = int((abs(deg) - d) * 60)
+    s = round((abs(deg) - d - m / 60) * 3600)
+    return f"{d}:{m}:{s}"
+
+
 def get_timezone_offset(latitude: float, longitude: float) -> str:
     tz_name = get_timezone_name(latitude, longitude)
     if not tz_name:

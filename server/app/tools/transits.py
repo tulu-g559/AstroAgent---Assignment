@@ -7,6 +7,8 @@ from flatlib.datetime import Datetime
 from flatlib.geopos import GeoPos
 from flatlib import const
 
+from app.tools.timezone_utils import dec_to_dms
+
 PLANET_MAP = [
     ("sun", const.SUN),
     ("moon", const.MOON),
@@ -32,7 +34,7 @@ def get_daily_transits(
 
     dt = Datetime(date, time, "+00:00")
 
-    pos = GeoPos(str(latitude), str(longitude))
+    pos = GeoPos(dec_to_dms(latitude), dec_to_dms(longitude))
 
     chart = Chart(dt, pos)
 
@@ -50,7 +52,8 @@ def get_daily_transits(
         matches = []
         for name in current_transits:
             transit_sign = current_transits[name]
-            natal_sign = natal_chart.get(name)
+            natal_val = natal_chart.get(name)
+            natal_sign = natal_val["sign"] if isinstance(natal_val, dict) else natal_val
             if natal_sign and transit_sign == natal_sign:
                 matches.append(
                     f"{name.capitalize()} currently in {transit_sign}, matching your natal {name}"
