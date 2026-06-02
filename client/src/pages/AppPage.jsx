@@ -34,9 +34,13 @@ export default function AppPage() {
           <span className="font-body text-[14px] text-text-primary">Chat</span>
         </div>
         <div className="flex items-center gap-3">
-          {messages.length > 0 && (
-            <Button variant="ghost" onClick={clearSession} className="!text-[12px] !px-3 !py-1">
-              Reset Reading
+          {(chart || messages.length > 0) && (
+            <Button
+              variant="ghost"
+              onClick={() => { clearSession(); navigate('/') }}
+              className="!text-[12px] !px-3 !py-1"
+            >
+              New Reading
             </Button>
           )}
           <StatusBadge status={chart ? 'loaded' : 'empty'} />

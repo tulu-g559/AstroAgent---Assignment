@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/primer/octicons/main/icons/star-24.svg" width="60" height="60" alt="star"/>
-
 # 🔭 Aradhana — AstroAgent
 
 **An AI-powered astrology assistant. Born from the stars. Built with LangGraph.**

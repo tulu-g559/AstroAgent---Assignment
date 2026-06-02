@@ -37,31 +37,31 @@ export default function HeroSection({ onBegin }) {
         <motion.div
           className="absolute rounded-full"
           style={{
-            width: 560, height: 560,
-            top: '50%', left: '50%',
+            width: 800, height: 800, // Increased size for depth
+            top: '50%', left: '30%', // Shifted left
             x: '-50%', y: '-50%',
-            background: 'radial-gradient(circle, rgba(192,132,252,0.13) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(192,132,252,0.08) 0%, transparent 70%)',
           }}
-          animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.9, 0.5] }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+          animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.8, 0.5] }}
+          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
           className="absolute rounded-full"
           style={{
-            width: 280, height: 280, top: '18%', left: '10%',
-            background: 'radial-gradient(circle, rgba(167,139,250,0.09) 0%, transparent 70%)',
+            width: 400, height: 400, top: '25%', left: '15%',
+            background: 'radial-gradient(circle, rgba(167,139,250,0.06) 0%, transparent 70%)',
           }}
           animate={{ scale: [1, 1.15, 1], opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
         />
         <motion.div
           className="absolute rounded-full"
           style={{
-            width: 200, height: 200, bottom: '8%', right: '8%',
-            background: 'radial-gradient(circle, rgba(196,181,253,0.08) 0%, transparent 70%)',
+            width: 300, height: 300, bottom: '8%', right: '8%',
+            background: 'radial-gradient(circle, rgba(196,181,253,0.05) 0%, transparent 70%)',
           }}
           animate={{ scale: [1, 1.12, 1], opacity: [0.5, 0.9, 0.5] }}
-          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
+          transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
         />
       </div>
 
@@ -98,10 +98,15 @@ export default function HeroSection({ onBegin }) {
 
       {/* ── Sacred geometry ── */}
       <motion.div
-        className="absolute pointer-events-none opacity-[0.055] z-0"
-        style={{ width: 460, height: 460, top: '50%', left: '50%', x: '-50%', y: '-50%' }}
+        className="absolute pointer-events-none opacity-[0.035] z-0" // Slightly lower opacity for deeper feel
+        style={{ 
+          width: 460, height: 460, 
+          top: '50%', left: '30%', // Shifted left
+          x: '-50%', y: '-50%', 
+          scale: 1.6 // Scaled up massively for depth
+        }}
         animate={{ rotate: 360 }}
-        transition={{ duration: 120, repeat: Infinity, ease: 'linear' }}
+        transition={{ duration: 150, repeat: Infinity, ease: 'linear' }} // Slower rotation
       >
         <svg viewBox="0 0 460 460" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="230" cy="230" r="210" stroke="rgba(192,132,252,0.6)" strokeWidth="0.5"/>
@@ -118,33 +123,34 @@ export default function HeroSection({ onBegin }) {
       </motion.div>
 
       {/* ── Concentric orbital rings ── */}
-      {[160, 240, 320, 420].map((size, i) => (
+      {/* Scaled sizes drastically for depth perspective */}
+      {[240, 360, 480, 630].map((size, i) => (
         <motion.div
           key={size}
           className="absolute rounded-full pointer-events-none z-0"
           style={{
             width: size, height: size,
-            top: '50%', left: '50%',
+            top: '50%', left: '30%', // Shifted left
             x: '-50%', y: '-50%',
-            border: i === 3 ? '0.5px dashed rgba(192,132,252,0.18)' : '0.5px solid rgba(192,132,252,0.15)',
+            border: i === 3 ? '0.5px dashed rgba(192,132,252,0.1)' : '0.5px solid rgba(192,132,252,0.1)',
           }}
-          animate={{ opacity: [0.15, 0.4, 0.15] }}
-          transition={{ duration: 5 + i, repeat: Infinity, ease: 'easeInOut', delay: i * 0.8 }}
+          animate={{ opacity: [0.1, 0.3, 0.1] }}
+          transition={{ duration: 7 + i, repeat: Infinity, ease: 'easeInOut', delay: i * 0.8 }}
         />
       ))}
 
       {/* ── Orbiting dots ── */}
       {[
-        { r: 80,  dur: 18, start: 0,   size: 4, color: '#A78BFA' },
-        { r: 120, dur: 28, start: 120, size: 3, color: '#C084FC' },
-        { r: 160, dur: 22, start: 240, size: 5, color: '#E9D5FF' },
+        { r: 120, dur: 24, start: 0,   size: 4, color: '#A78BFA' }, // Expanded r (radius)
+        { r: 180, dur: 36, start: 120, size: 3, color: '#C084FC' },
+        { r: 240, dur: 28, start: 240, size: 5, color: '#E9D5FF' },
       ].map((dot, i) => (
         <motion.div
           key={i}
           className="absolute rounded-full pointer-events-none z-0"
           style={{
             width: dot.size, height: dot.size,
-            top: '50%', left: '50%',
+            top: '50%', left: '30%', // Shifted left
             marginTop: -dot.size / 2, marginLeft: -dot.size / 2,
             background: dot.color,
             boxShadow: `0 0 8px ${dot.color}aa`,

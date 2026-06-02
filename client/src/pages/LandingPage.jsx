@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import HeroSection from '../components/landing/HeroSection'
 import BirthForm from '../components/landing/BirthForm'
@@ -14,13 +14,15 @@ export default function LandingPage({ onNavigateToApp }) {
   const { chart, chartLoading, chartError, setChartError, messages, clearSession } = useApp()
   const { calculateChart } = useChart()
   const [showForm, setShowForm] = useState(false)
+  const hadChart = useRef(false)
 
-  // Show form automatically if there's persisted data but no chart yet
+  // Track when chart existed and was cleared, then show form
+  if (chart) hadChart.current = true
   useEffect(() => {
-    if (!chart && !chartLoading && !chartError && messages.length > 0) {
+    if (!chart && hadChart.current) {
       setShowForm(true)
     }
-  }, [])
+  }, [chart])
 
   const handleBegin = () => {
     setShowForm(true)
@@ -105,13 +107,11 @@ export default function LandingPage({ onNavigateToApp }) {
               className="px-6 mt-20"
             >
               <ChartSummaryCard onStartChat={onNavigateToApp} />
-              {messages.length > 0 && (
-                <div className="flex justify-center mt-4">
-                  <Button variant="ghost" onClick={clearSession} className="!text-[12px]">
-                    Reset Reading
-                  </Button>
-                </div>
-              )}
+              <div className="flex justify-center gap-3 mt-4">
+                <Button variant="ghost" onClick={() => { clearSession(); setShowForm(true) }} className="!text-[12px]">
+                  New Reading
+                </Button>
+              </div>
             </motion.div>
           ) : null}
         </AnimatePresence>

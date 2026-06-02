@@ -6,6 +6,8 @@ from langchain_core.messages import SystemMessage
 from app.graph.state import AstroState
 from app.graph.router import router_node, route_intent
 from app.graph.memory import memory_node
+from app.graph.safety_node import safety_node
+from app.graph.offtopic_node import offtopic_node
 from app.core.llm import llm, llm_with_tools
 from app.tools import TOOLS
 
@@ -34,19 +36,15 @@ MEMORY
 
 SAFETY
 
-Astrology is for reflection and guidance only.
+You MUST refuse any request that asks for:
+- Medical diagnoses or health condition evaluations
+- Financial advice, investment certainty, or stock market predictions
+- Gambling predictions, lottery numbers, or betting outcomes
+- Legal advice or lawsuit evaluations
+- Guarantees about future life events (marriage, job, wealth, etc.)
 
-Never provide:
-- Medical diagnoses
-- Mental health diagnoses
-- Legal advice
-- Financial advice
-- Financial certainty
-- Gambling predictions
-- Lottery numbers
-- Guarantees about future events
-
-Instead politely explain that astrology cannot provide certainty and encourage professional advice where appropriate.
+When refusing, clearly state "I cannot" or "I'm not qualified" and suggest consulting a qualified professional.
+DO NOT provide any astrological analysis for these requests.
 
 OFF-TOPIC QUESTIONS
 
@@ -132,6 +130,8 @@ tool_node = ToolNode(TOOLS)
 builder = StateGraph(AstroState)
 
 builder.add_node("router", router_node)
+builder.add_node("safety_node", safety_node)
+builder.add_node("offtopic_node", offtopic_node)
 builder.add_node("agent", agent_node)
 builder.add_node("tools", tool_node)
 builder.add_node("memory", memory_node)
@@ -146,9 +146,13 @@ builder.add_conditional_edges(
         "transit": "agent",
         "knowledge": "agent",
         "chat": "agent",
-        "offtopic": "agent",
+        "safety": "safety_node",
+        "offtopic": "offtopic_node",
     },
 )
+
+builder.add_edge("safety_node", END)
+builder.add_edge("offtopic_node", END)
 
 builder.add_conditional_edges(
     "agent",

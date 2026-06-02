@@ -9,25 +9,39 @@ chart
 transit
 knowledge
 chat
+safety
 offtopic
 
 Definitions:
 
 chart:
 birth chart generation
+natal chart calculation
 
 transit:
 today's horoscope
 current planetary energy
+daily transits
 
 knowledge:
 astrology explanations
+interpretation of planetary placements
+astrology concept questions
 
 chat:
 general conversation
+greetings
+thanks
+
+safety:
+medical diagnosis or health condition questions
+financial advice or investment certainty
+gambling, lottery numbers, or betting
+legal advice or lawsuit questions
+requests for definite predictions about marriage, job, wealth, or life events
 
 offtopic:
-unrelated topics
+completely unrelated topics like weather, sports, cooking, arithmetic, travel booking
 """
 
 
