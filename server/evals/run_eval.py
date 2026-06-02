@@ -53,6 +53,16 @@ def load_golden_set(category: str | None = None, quick: bool = False) -> list[di
     return examples
 
 
+def init_eval_session() -> str:
+    """Create a server-side session pre-seeded with hardcoded birth chart data."""
+    try:
+        resp = requests.post(f"{BASE_URL}/eval/init", timeout=10)
+        data = resp.json()
+        return data.get("session_id", "")
+    except requests.RequestException:
+        return ""
+
+
 def request_chat(prompt: str) -> dict[str, Any]:
     """Send a prompt to the chat endpoint and return response info."""
     sid = SESSION_STORE.get("session_id", "")
@@ -144,6 +154,14 @@ def passes_chat(response: str, category: str) -> bool:
 def run_eval(category: str | None = None, quick: bool = False) -> list[dict]:
     examples = load_golden_set(category, quick)
     results: list[dict] = []
+
+    # Seed a server-side session with hardcoded birth chart data
+    seed_sid = init_eval_session()
+    if seed_sid:
+        SESSION_STORE["session_id"] = seed_sid
+        print("  ✓ Pre-seeded eval session with hardcoded birth chart data")
+    else:
+        print("  ⚠ Could not create seeded eval session; proceeding without birth data")
 
     print(f"\n{'='*60}")
     print(f"  AstroAgent Evaluation  |  {len(examples)} prompts")

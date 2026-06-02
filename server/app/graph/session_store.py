@@ -29,3 +29,14 @@ def update_session(session_id: str, state: dict[str, Any]) -> None:
         "birth_data": state.get("birth_data"),
         "natal_chart": state.get("natal_chart"),
     }
+
+
+def set_session_data(
+    session_id: str,
+    birth_data: dict[str, Any] | None,
+    natal_chart: dict[str, Any] | None,
+) -> None:
+    if session_id not in _session_store:
+        _session_store[session_id] = _new_session()
+    _session_store[session_id]["birth_data"] = birth_data
+    _session_store[session_id]["natal_chart"] = natal_chart
