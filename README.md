@@ -1,14 +1,12 @@
 <div align="center">
 
-# 🔭 Aradhana — AstroAgent
-
-**An AI-powered astrology assistant. Born from the stars. Built with LangGraph.**
+# 🔭 AstroAgent
+**An AI-powered astrology assistant agent. Born from the stars. Built with LangGraph.**
 
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![LangGraph](https://img.shields.io/badge/LangGraph-Agent-FF6B6B?style=for-the-badge&logo=langchain&logoColor=white)](https://www.langchain.com/langgraph)
-[![License](https://img.shields.io/badge/License-MIT-gold?style=for-the-badge)](LICENSE)
 
 <br/>
 
@@ -22,15 +20,14 @@
   ♈ ♉ ♊ ♋ ♌ ♍ ♎ ♏ ♐ ♑ ♒ ♓
 ```
 
-[**✨ Live Demo**](#) · [**📖 Docs**](#setup) · [**🐛 Report Bug**](#) · [**💡 Request Feature**](#)
-
+[**✨ Live Demo**](https://drive.google.com/file/d/1yErJ61p2swmQAVW8wvZSfW2kAuRbYAvl/view?usp=sharing)
 </div>
 
 ---
 
-## ✨ What is Aradhana?
+## ✨ What is AstroAgent?
 
-Aradhana is a full-stack AI astrology assistant that combines:
+A full-stack AI astrology assistant that combines:
 
 - **Swiss Ephemeris precision** — the same engine used by professional astrologers
 - **LangGraph intelligence** — a multi-node state machine that routes, reasons, and retrieves
@@ -211,8 +208,8 @@ graph LR
 ## 📁 Project Structure
 
 ```
-aradhana/
-├── client/                          # ⚛️ React frontend
+astroagent/
+├── client/                          # React frontend
 │   └── src/
 │       ├── components/
 │       │   ├── cards/               # DailyEnergyCard, SafetyNoticeCard
@@ -224,7 +221,7 @@ aradhana/
 │       ├── hooks/                   # useChart, useChat, useTransits
 │       └── pages/                   # LandingPage, AppPage
 │
-└── server/                          # 🐍 Python backend
+└── server/                          # Python backend
     ├── app/
     │   ├── api/                     # Routes: chat, chart, geocode, transits
     │   ├── core/llm.py              # LLM client (OpenRouter / OpenAI)
@@ -379,6 +376,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 *"The stars incline, they do not compel."*
 
-[![Stars](https://img.shields.io/github/stars/your-username/aradhana?style=social)](https://github.com/your-username/aradhana)
+[![Stars](https://img.shields.io/github/stars/tulu-g559/AstroAgent---Assignment?style=social)](https://github.com/tulu-g559/AstroAgent---Assignment)
 
 </div>
