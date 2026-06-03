@@ -254,8 +254,7 @@ astroagent/
 ### 1. Clone
 
 ```bash
-git clone https://github.com/your-username/aradhana.git
-cd aradhana
+git clone https://github.com/tulu-g559/AstroAgent---Assignment.git
 ```
 
 ### 2. Backend
@@ -279,7 +278,7 @@ cp .env.example .env
 python scripts/download_ephemeris.py
 
 # Start server
-uvicorn main:app --reload --port 8000
+uvicorn main:app --reload
 ```
 
 ### 3. Frontend
